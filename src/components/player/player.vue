@@ -239,6 +239,7 @@ export default {
       }
       if (this.playlist.length === 1) {
         this.loop()
+        return
       } else {
         let index = this.currentIndex + 1
         if (index === this.playlist.length) {
@@ -258,6 +259,7 @@ export default {
       }
       if (this.playlist.length === 1) {
         this.loop()
+        return
       } else {
         let index = this.currentIndex - 1
         if (index === -1) {
@@ -304,6 +306,9 @@ export default {
     },
     getLyric() {
       this.currentSong.getLyric().then((lyric) => {
+        if (this.currentSong.lyric !== lyric) {
+          return
+        }
         this.currentLyric = new Lyric(lyric, this.handleLyric)
         if (this.playing) {
           this.currentLyric.play()
@@ -500,14 +505,15 @@ export default {
           position: relative
           width: 100%
           height: 0
-          padding-top: 80%
+          padding-top: 60%
           .cd-wrapper
             position: absolute
             left: 10%
             top: 0
-            width: 80%
+            width: 60%
             box-sizing: border-box
             height: 100%
+            margin-left: 12%
             .cd
               width: 100%
               height: 100%
